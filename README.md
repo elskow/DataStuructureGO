@@ -1,1 +1,3 @@
 # DataStuructureGO
+
+This repository contains source code for the Data Structures course at the [State University of Surabaya](https://www.unesa.ac.id/). The code is written in [Golang](https://go.dev/) and serves as an implementation of various data structures, such as linked lists, stacks, queues, trees, and graph. This code was written as a part of the course assignment. Written in Go 1.19.5 version.
