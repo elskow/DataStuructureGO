@@ -27,15 +27,15 @@ func main() {
 	fmt.Printf("Masukkan angka: ")
 	var x uint
 	fmt.Scan(&x)
-	
+
 	fmt.Printf("Masukkan pangkat: ")
 	var y uint
 	fmt.Scan(&y)
 
 	start0 := time.Now()
-	fmt.Printf("%d pangkat %d adalah %d (Menggunakan rekursif sederhana)\n", x, y, pangkat(x, y))
+	fmt.Printf("\n%d pangkat %d adalah %d (Menggunakan rekursif sederhana)\n", x, y, pangkat(x, y))
 	elapsed := time.Since(start0)
-	fmt.Printf("Waktu eksekusi: %s	\n", elapsed)
+	fmt.Printf("Waktu eksekusi: %s	\n\n", elapsed)
 
 	start0 = time.Now()
 	fmt.Printf("%d pangkat %d adalah %d (Menggunakan rekursif yang dioptimasi)\n", x, y, optimizedPangkat(x, y))
