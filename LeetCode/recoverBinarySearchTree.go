@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"sort"
+)
+
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
@@ -7,41 +12,37 @@ type TreeNode struct {
 }
 
 func recoverTree(root *TreeNode) {
-	var prev *TreeNode
-	recoverTreeHelper(root, &prev)
+	var nums []int
+	var nodes []*TreeNode
+	inorder(root, &nums, &nodes)
+	sort.Ints(nums)
+	for i := 0; i < len(nums); i++ {
+		nodes[i].Val = nums[i]
+	}
 }
 
-func recoverTreeHelper(root *TreeNode, prev **TreeNode) {
+func inorder(root *TreeNode, nums *[]int, nodes *[]*TreeNode) {
 	if root == nil {
 		return
 	}
-
-	recoverTreeHelper(root.Left, prev)
-
-	if *prev != nil && (*prev).Val >= root.Val {
-		if *prev == nil {
-			*prev = root
-		} else {
-			(*prev).Val, root.Val = root.Val, (*prev).Val
-			*prev = nil
-		}
-	}
-
-	recoverTreeHelper(root.Right, prev)
+	inorder(root.Left, nums, nodes)
+	*nums = append(*nums, root.Val)
+	*nodes = append(*nodes, root)
+	inorder(root.Right, nums, nodes)
 }
 
 func main() {
-	root := &TreeNode{Val: 1, Right: &TreeNode{Val: 3, Left: &TreeNode{Val: 2}}}
+	root := &TreeNode{1, &TreeNode{3, nil, &TreeNode{2, nil, nil}}, nil}
 	recoverTree(root)
 	for root != nil {
-		println(root.Val)
+		fmt.Println(root.Val)
 		root = root.Right
 	}
 
-	root = &TreeNode{Val: 3, Left: &TreeNode{Val: 1}, Right: &TreeNode{Val: 4, Left: &TreeNode{Val: 2}}}
+	root = &TreeNode{3, &TreeNode{1, nil, nil}, &TreeNode{4, &TreeNode{2, nil, nil}, nil}}
 	recoverTree(root)
 	for root != nil {
-		println(root.Val)
+		fmt.Println(root.Val)
 		root = root.Right
 	}
 }
